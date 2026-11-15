@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Bài Tập Môn Toán - Lớp 1/7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: #fdfbf7; 
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Hide arrows in number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; text-align: center; }
+        
+        .input-box { 
+            width: 2.5rem; 
+            height: 2.5rem; 
+            border: 2px dashed #94a3b8; 
+            border-radius: 0.5rem; 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            color: #334155; 
+            transition: all 0.2s; 
+            outline: none; 
+            background: white;
+        }
+        @media (min-width: 768px) {
+            .input-box { width: 3rem; height: 3rem; border-radius: 0.75rem; font-size: 1.5rem; }
+        }
+        .input-box:focus { border-color: #fbbf24; border-style: solid; box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3); }
+        .correct { background-color: #dcfce7; border-color: #22c55e; border-style: solid; color: #15803d; }
+        .incorrect { background-color: #fee2e2; border-color: #ef4444; border-style: solid; color: #b91c1c; }
+        
+        .match-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; user-select: none; }
+        .match-btn:active { transform: scale(0.95); }
+        .match-selected { box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.5); transform: scale(1.05) !important; border-color: #eab308; }
+        .match-solved { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; opacity: 0.6; pointer-events: none; transform: scale(0.95) !important; box-shadow: none !important;}
+        
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+            40%, 60% { transform: translate3d(3px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex justify-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-pink-100">
+        <!-- Header -->
+        <header class="bg-pink-50 p-6 md:p-8 text-center border-b-4 border-pink-100 relative">
+            <div class="absolute top-4 left-4 md:top-6 md:left-6 opacity-80">
+                <span class="text-4xl">🏫</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-pink-600 mb-2 uppercase tracking-wide">Phiếu Bài Tập Môn Toán</h1>
+            <p class="text-lg md:text-xl font-semibold text-slate-600 mb-4">Hiên nhà 1/7 - Cô Phương Thảo</p>
+            
+            <div class="max-w-sm mx-auto bg-white p-3 rounded-2xl shadow-sm border-2 border-pink-200 flex items-center gap-3 mt-4">
+                <span class="text-2xl ml-2">👧👦</span>
+                <input type="text" id="student-name" placeholder="Nhập tên của con vào đây..." class="w-full outline-none text-lg font-bold text-slate-700 placeholder-slate-400 bg-transparent">
+            </div>
+        </header>
+
+        <div class="p-6 md:p-8 space-y-12">
+            
+            <!-- Bài 1 -->
+            <section class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-200 shadow-sm relative">
+                <div class="absolute -top-4 left-6 bg-amber-200 text-amber-800 font-bold px-4 py-1 rounded-full border-2 border-white shadow-sm">Bài 1: Viết phép tính thích hợp</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <!-- Ong -->
+                    <div class="flex flex-col items-center space-y-3 bg-white p-4 rounded-xl border border-amber-100 shadow-sm">
+                        <div class="text-4xl flex items-center gap-2 pb-2 border-b-2 border-dashed border-gray-200 w-full justify-center">
+                            <span>🐝🐝🐝</span>
+                            <span class="text-gray-300 text-2xl mx-1">|</span>
+                            <span>🐝🐝</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xl font-bold text-slate-700">
+                            <div class="w-10 text-center">3</div>
+                            <span>+</span>
+                            <input type="number" class="input-box" data-answer="2" oninput="limitLength(this)">
+                            <span>=</span>
+                            <input type="number" class="input-box" data-answer="5" oninput="limitLength(this)">
+                        </div>
+                    </div>
+
+                    <!-- Cá -->
+                    <div class="flex flex-col items-center space-y-3 bg-white p-4 rounded-xl border border-amber-100 shadow-sm">
+                        <div class="text-4xl flex items-center gap-2 pb-2 border-b-2 border-dashed border-gray-200 w-full justify-center">
+                            <span>🐟🐟🐟</span>
+                            <span class="text-gray-300 text-2xl mx-1">|</span>
+                            <span>🐟</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xl font-bold text-slate-700">
+                            <div class="w-10 text-center">3</div>
+                            <span>+</span>
+                            <input type="number" class="input-box" data-answer="1" oninput="limitLength(this)">
+                            <span>=</span>
+                            <input type="number" class="input-box" data-answer="4" oninput="limitLength(this)">
+                        </div>
+                    </div>
+
+                    <!-- Chim -->
+                    <div class="flex flex-col items-center space-y-3 bg-white p-4 rounded-xl border border-amber-100 shadow-sm">
+                        <div class="text-4xl flex items-center gap-2 pb-2 border-b-2 border-dashed border-gray-200 w-full justify-center">
+                            <span>🐦🐦</span>
+                            <span class="text-gray-300 text-2xl mx-1">|</span>
+                            <span>🐦🐦🐦🐦</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xl font-bold text-slate-700">
+                            <input type="number" class="input-box" data-answer="2" oninput="limitLength(this)">
+                            <span>+</span>
+                            <input type="number" class="input-box" data-answer="4" oninput="limitLength(this)">
+                            <span>=</span>
+                            <input type="number" class="input-box" data-answer="6" oninput="limitLength(this)">
+                        </div>
+                    </div>
+
+                    <!-- Táo (Custom SVG Layout) -->
+                    <div class="md:col-span-2 flex flex-col items-center space-y-4 bg-white p-6 rounded-2xl border border-amber-100 shadow-sm">
+                        
+                        <!-- SVG Defs (Invisible - Reusable components for basket and apples) -->
+                        <svg class="absolute w-0 h-0">
+                            <defs>
+                                <g id="apple">
+                                    <!-- Quả táo -->
+                                    <circle cx="0" cy="0" r="22" fill="#ef4444" stroke="#b91c1c" stroke-width="2"/>
+                                    <!-- Cuống -->
+                                    <path d="M -2,-22 Q -5,-35 5,-35" fill="none" stroke="#451a03" stroke-width="3"/>
+                                    <!-- Lá -->
+                                    <path d="M 5,-35 C 15,-35 20,-25 10,-20 C 0,-25 0,-35 5,-35 Z" fill="#22c55e" stroke="#14532d" stroke-width="1"/>
+                                    <!-- Bóng sáng (Highlight) -->
+                                    <path d="M -10,-10 A 8 8 0 0 1 -2,-18" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+                                </g>
+                                <g id="basket-back">
+                                    <!-- Quai xách -->
+                                    <path d="M 30,60 C 20,-20 180,-20 170,60" fill="none" stroke="#d97706" stroke-width="12" stroke-linecap="round"/>
+                                    <path d="M 30,60 C 20,-20 180,-20 170,60" fill="none" stroke="#92400e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
+                                    <!-- Lòng giỏ phía sau -->
+                                    <ellipse cx="100" cy="70" rx="75" ry="25" fill="#92400e" stroke="#78350f" stroke-width="2"/>
+                                    <!-- Đáy giỏ (lòng trong) -->
+                                    <ellipse cx="100" cy="73" rx="68" ry="18" fill="#451a03" />
+                                </g>
+                                <g id="basket-front">
+                                    <!-- Thân giỏ phía trước -->
+                                    <path d="M 25,70 C 25,120 50,150 100,150 C 150,150 175,120 175,70 Z" fill="#f59e0b" stroke="#92400e" stroke-width="3"/>
+                                    <!-- Họa tiết đan giỏ mây (ngang) -->
+                                    <path d="M 35,90 Q 100,110 165,90 M 45,110 Q 100,130 155,110 M 65,130 Q 100,145 135,130" fill="none" stroke="#b45309" stroke-width="4"/>
+                                    <!-- Họa tiết đan giỏ mây (dọc) -->
+                                    <path d="M 50,75 L 50,135 M 75,80 L 75,145 M 100,82 L 100,148 M 125,80 L 125,145 M 150,75 L 150,135" fill="none" stroke="#b45309" stroke-width="4"/>
+                                    <!-- Viền mép giỏ -->
+                                    <path d="M 25,70 A 75 25 0 0 0 175,70" fill="none" stroke="#f59e0b" stroke-width="8"/>
+                                    <path d="M 25,70 A 75 25 0 0 0 175,70" fill="none" stroke="#92400e" stroke-width="2"/>
+                                </g>
+                            </defs>
+                        </svg>
+
+                        <!-- Box chia đôi hiển thị SVG -->
+                        <div class="w-full flex flex-row rounded-2xl border-2 border-gray-200 overflow-hidden bg-white shadow-inner">
+                            
+                            <!-- Bên trái: Giỏ có 5 quả táo -->
+                            <div class="flex-1 flex justify-center items-center p-4 sm:p-6 border-r-2 border-dashed border-gray-300">
+                                <svg viewBox="0 0 200 160" class="w-full max-w-[220px] h-auto drop-shadow-md">
+                                    <use href="#basket-back" />
+                                    <!-- 5 quả táo được đặt chồng lên nhau -->
+                                    <use href="#apple" x="70" y="65" />
+                                    <use href="#apple" x="130" y="68" />
+                                    <use href="#apple" x="50" y="82" />
+                                    <use href="#apple" x="100" y="85" />
+                                    <use href="#apple" x="145" y="78" />
+                                    <use href="#basket-front" />
+                                </svg>
+                            </div>
+                            
+                            <!-- Bên phải: Giỏ trống -->
+                            <div class="flex-1 flex justify-center items-center p-4 sm:p-6 bg-gray-50/30">
+                                <svg viewBox="0 0 200 160" class="w-full max-w-[220px] h-auto drop-shadow-md">
+                                    <use href="#basket-back" />
+                                    <use href="#basket-front" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Các ô input -->
+                        <div class="flex items-center space-x-3 text-2xl font-bold text-slate-700 pt-2">
+                            <input type="number" class="input-box" data-answer="5" oninput="limitLength(this)">
+                            <span>+</span>
+                            <input type="number" class="input-box" data-answer="0" oninput="limitLength(this)">
+                            <span>=</span>
+                            <input type="number" class="input-box" data-answer="5" oninput="limitLength(this)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bài 2 -->
+            <section class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200 shadow-sm relative">
+                <div class="absolute -top-4 left-6 bg-blue-300 text-blue-900 font-bold px-4 py-1 rounded-full border-2 border-white shadow-sm">Bài 2: Số?</div>
+                
+                <div class="mt-4 text-slate-700 font-bold text-lg md:text-xl space-y-8">
+                    <!-- Phần a -->
+                    <div>
+                        <p class="mb-4 text-blue-600 font-bold">a) Tính kết quả:</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-4">
+                            <div class="flex items-center gap-2">1 + 2 = <input type="number" class="input-box" data-answer="3" oninput="limitLength(this)"></div>
+                            <div class="flex items-center gap-2">2 + 4 = <input type="number" class="input-box" data-answer="6" oninput="limitLength(this)"></div>
+                            <div class="flex items-center gap-2">1 + 5 = <input type="number" class="input-box" data-answer="6" oninput="limitLength(this)"></div>
+                            <div class="flex items-center gap-2">4 + 1 = <input type="number" class="input-box" data-answer="5" oninput="limitLength(this)"></div>
+                            <div class="flex items-center gap-2">3 + 3 = <input type="number" class="input-box" data-answer="6" oninput="limitLength(this)"></div>
+                            <div class="flex items-center gap-2">2 + 3 = <input type="number" class="input-box" data-answer="5" oninput="limitLength(this)"></div>
+                        </div>
+                    </div>
+
+                    <!-- Phần b -->
+                    <div>
+                        <p class="mb-4 text-blue-600 font-bold">b) Tìm số bí ẩn:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-4">
+                            <div class="flex items-center gap-2"><input type="number" class="input-box" data-answer="3" oninput="limitLength(this)"> + 2 = 5</div>
+                            <div class="flex items-center gap-2"><input type="number" class="input-box" data-answer="2" oninput="limitLength(this)"> + 4 = 6</div>
+                            <div class="flex items-center gap-2">2 + <input type="number" class="input-box" data-answer="3" oninput="limitLength(this)"> = 4 + 1</div>
+                            
+                            <div class="flex items-center gap-2"><input type="number" class="input-box" data-answer="5" oninput="limitLength(this)"> + 1 = 6</div>
+                            <div class="flex items-center gap-2">1 + <input type="number" class="input-box" data-answer="4" oninput="limitLength(this)"> = 5</div>
+                            <div class="flex items-center gap-2"><input type="number" class="input-box" data-answer="2" oninput="limitLength(this)"> + 3 = 3 + 2</div>
+                            
+                            <div class="flex items-center gap-2"><input type="number" class="input-box" data-answer="4" oninput="limitLength(this)"> + 1 = 5</div>
+                            <div class="flex items-center gap-2">3 + <input type="number" class="input-box" data-answer="3" oninput="limitLength(this)"> = 6</div>
+                            <div class="flex items-center gap-2">4 + <input type="number" class="input-box" data-answer="2" oninput="limitLength(this)"> = 3 + 3</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bài 3 -->
+            <section class="bg-green-50 rounded-2xl p-6 border-2 border-green-200 shadow-sm relative">
+                <div class="absolute -top-4 left-6 bg-green-300 text-green-900 font-bold px-4 py-1 rounded-full border-2 border-white shadow-sm">Bài 3: Nối các phép tính bằng nhau</div>
+                
+                <p class="text-center text-green-700 font-semibold mb-6 mt-2">Nhấn chọn một ô màu cam và một ô màu xanh có cùng kết quả nhé!</p>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24">
+                    <!-- Cột Cam -->
+                    <div class="flex flex-col gap-4" id="colA">
+                        <button class="match-btn bg-orange-200 border-2 border-orange-300 text-orange-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="A" data-sum="5" data-id="A1">4 + 1</button>
+                        <button class="match-btn bg-orange-200 border-2 border-orange-300 text-orange-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="A" data-sum="4" data-id="A2">2 + 2</button>
+                        <button class="match-btn bg-orange-200 border-2 border-orange-300 text-orange-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="A" data-sum="6" data-id="A3">2 + 4</button>
+                    </div>
+
+                    <!-- Đường nối ảo -->
+                    <div class="hidden md:flex text-green-200 text-4xl">
+                        ⇌
+                    </div>
+
+                    <!-- Cột Xanh -->
+                    <div class="flex flex-col gap-4" id="colB">
+                        <button class="match-btn bg-lime-200 border-2 border-lime-300 text-lime-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="B" data-sum="4" data-id="B1">1 + 3</button>
+                        <button class="match-btn bg-lime-200 border-2 border-lime-300 text-lime-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="B" data-sum="5" data-id="B2">2 + 3</button>
+                        <button class="match-btn bg-lime-200 border-2 border-lime-300 text-lime-900 font-bold text-2xl py-3 px-8 rounded-xl shadow" data-group="B" data-sum="6" data-id="B3">3 + 3</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Button & Message -->
+            <div class="text-center pt-4">
+                <button id="btn-submit" class="bg-pink-500 hover:bg-pink-600 text-white text-xl font-bold py-4 px-12 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95">
+                    Nộp bài & Chấm điểm 🌟
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Kết quả -->
+    <div id="result-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center border-4 border-pink-300 transform scale-95 transition-transform duration-300">
+            <h2 class="text-6xl mb-4" id="modal-emoji">🎉</h2>
+            <h3 class="text-2xl font-bold text-pink-600 mb-2" id="modal-title">Chúc mừng con!</h3>
+            <p class="text-xl text-slate-700 mb-6" id="modal-message">Con đã hoàn thành bài tập.</p>
+            <button id="btn-close-modal" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full shadow transition-transform active:scale-95">
+                Đóng
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // URL Google Apps Script Webhook (Bạn điền URL sau khi deploy Google Script vào đây)
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+        
+        // === Utilities ===
+        function limitLength(element) {
+            if (element.value.length > 1) {
+                element.value = element.value.slice(0, 1);
+            }
+        }
+
+        // === Audio Context Setup (Web Audio API) ===
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTing() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
+            oscillator.frequency.exponentialRampToValueAtTime(1100, audioCtx.currentTime + 0.1); 
+            
+            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playWrong() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(200, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.2);
+        }
+
+        // === Speech Setup (Web Speech API) ===
+        function speakMessage(message) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.lang = 'vi-VN';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.2; // Giọng hơi cao và vui tươi
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // === Exercise 3: Matching Logic ===
+        let selectedA = null;
+        let selectedB = null;
+        let matchCount = 0;
+
+        const matchBtns = document.querySelectorAll('.match-btn');
+        matchBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Prevent interaction if already solved
+                if (this.classList.contains('match-solved')) return;
+
+                const group = this.dataset.group;
+                
+                // Toggle selection
+                if (group === 'A') {
+                    if (selectedA === this) {
+                        this.classList.remove('match-selected');
+                        selectedA = null;
+                        return;
+                    }
+                    if (selectedA) selectedA.classList.remove('match-selected');
+                    selectedA = this;
+                } else {
+                    if (selectedB === this) {
+                        this.classList.remove('match-selected');
+                        selectedB = null;
+                        return;
+                    }
+                    if (selectedB) selectedB.classList.remove('match-selected');
+                    selectedB = this;
+                }
+                
+                this.classList.add('match-selected');
+
+                // Check match if both selected
+                if (selectedA && selectedB) {
+                    checkMatch();
+                }
+            });
+        });
+
+        function checkMatch() {
+            const sumA = parseInt(selectedA.dataset.sum);
+            const sumB = parseInt(selectedB.dataset.sum);
+
+            if (sumA === sumB) {
+                // Match correct
+                playTing();
+                selectedA.classList.remove('match-selected');
+                selectedB.classList.remove('match-selected');
+                selectedA.classList.add('match-solved');
+                selectedB.classList.add('match-solved');
+                matchCount++;
+                
+                if (matchCount === 3) {
+                     // Optional: mini celebrate for completing Ex 3 early
+                }
+            } else {
+                // Match incorrect
+                playWrong();
+                selectedA.classList.add('shake', 'bg-red-200', 'border-red-400');
+                selectedB.classList.add('shake', 'bg-red-200', 'border-red-400');
+                
+                const tempA = selectedA;
+                const tempB = selectedB;
+                
+                setTimeout(() => {
+                    tempA.classList.remove('shake', 'bg-red-200', 'border-red-400', 'match-selected');
+                    tempB.classList.remove('shake', 'bg-red-200', 'border-red-400', 'match-selected');
+                }, 400);
+            }
+            // Reset selection
+            selectedA = null;
+            selectedB = null;
+        }
+
+        // === Check All Answers Logic ===
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzPuKz9bEkssydfc42cSmbh1Jm8pqoUmaexU103eYf4dq-bAjyDzVX8ne_1Qf0p8gF5ng/exec';
+
+        document.getElementById('btn-submit').addEventListener('click', function() {
+            // Need audio context to start on user gesture if not already
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const studentName = document.getElementById('student-name').value.trim();
+            const msgElement = document.getElementById('result-message');
+            const submitBtn = document.getElementById('btn-submit');
+            
+            if (!studentName) {
+                msgElement.textContent = "Con quên nhập tên rồi kìa! 📝";
+                msgElement.className = "mt-4 text-xl font-bold text-red-500 transition-opacity block";
+                playWrong();
+                // Cuộn lên đầu trang để bé thấy ô nhập tên
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            // Disable button to prevent multiple submissions
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            submitBtn.innerHTML = "Đang chấm điểm... ⏳";
+
+            const inputs = document.querySelectorAll('input[data-answer]');
+            let correctCount = 0;
+            let totalInputs = inputs.length;
+
+            // Check inputs (Bài 1 & 2)
+            inputs.forEach(input => {
+                input.classList.remove('correct', 'incorrect');
+                if (input.value.trim() === input.dataset.answer) {
+                    input.classList.add('correct');
+                    correctCount++;
+                } else if (input.value.trim() !== "") {
+                    input.classList.add('incorrect');
+                } else {
+                    input.classList.add('incorrect'); // mark empty as incorrect
+                }
+            });
+
+            msgElement.classList.remove('hidden');
+
+            // Total required = inputs + 3 matches
+            const totalTasks = totalInputs + 3;
+            const userScore = correctCount + matchCount;
+
+            msgElement.textContent = "Đang gửi điểm cho cô giáo... ⏳";
+            msgElement.className = "mt-4 text-xl font-bold text-blue-500 transition-opacity block";
+
+            // Prepare data for Google Sheets
+            const formData = new FormData();
+            formData.append('name', studentName);
+            formData.append('score', userScore + '/' + totalTasks);
+
+            // Send to Google Sheets
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+                .then(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    submitBtn.innerHTML = "Hoàn thành 🌟";
+
+                    if (userScore === totalTasks) {
+                        // Perfect Score
+                        msgElement.textContent = "🎉 Xuất sắc! Điểm đã được gửi cho cô giáo! 🎉";
+                        msgElement.className = "mt-4 text-2xl font-bold text-green-600 transition-opacity block";
+                        speakPraise();
+                        fireConfetti();
+                    } else {
+                        // Needs correction
+                        msgElement.textContent = `Con đúng ${userScore}/${totalTasks} câu. Điểm đã gửi cho cô, con cùng xem lại các ô màu đỏ nhé!`;
+                        msgElement.className = "mt-4 text-xl font-bold text-orange-500 transition-opacity block";
+                        speakTryAgain();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    submitBtn.innerHTML = "Hoàn thành 🌟";
+                    msgElement.textContent = "Có lỗi mạng khi gửi điểm, nhưng con đã làm xong rồi! 🌟";
+                    msgElement.className = "mt-4 text-xl font-bold text-pink-500 transition-opacity block";
+                });
+        });
+
+        // === Confetti Animation ===
+        function fireConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                }));
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
